@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:20-alpine3.19
+FROM node:16.20.2-alpine3.18 AS build
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
