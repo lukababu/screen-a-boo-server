@@ -1,17 +1,22 @@
-const app = require("express")();
-const server = require("http").createServer(app);
+const express = require("express");
+const http = require("http");
 const cors = require("cors");
+const socketIo = require("socket.io");
 
-const io = require("socket.io")(server, {
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"],
-    },
-});
-
-app.use(cors());
+const app = express();
+const server = http.createServer(app);
 
 const PORT = process.env.PORT || 5000;
+
+// Configure CORS to allow all origins (since only Nginx will access this)
+app.use(cors({ origin: "*" }));
+
+const io = socketIo(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
 
 app.get("/", (req, res) => {
     res.send("Running");
