@@ -10,6 +10,9 @@ COPY package*.json index.js ./
 # Install dependencies
 RUN npm install
 
+# Install nodemon globally
+RUN npm install -g nodemon
+
 # Run the application
 CMD ["nodemon", "index.js"]
 
