@@ -8,12 +8,18 @@ const server = http.createServer(app);
 
 const PORT = process.env.PORT || 5000;
 
-// Configure CORS to allow all origins (since only Nginx will access this)
-app.use(cors({ origin: "*" }));
+// Configure CORS for Express
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+    credentials: true
+}));
 
+// Configure CORS for Socket.IO
 const io = socketIo(server, {
     cors: {
-        origin: "*",
+        origin: "*", // Allow all origins (or set to http://10.100.1.107:8293 for specific)
         methods: ["GET", "POST"]
     }
 });
